@@ -12,9 +12,9 @@ GET /search?**firstname**=John&**firstname**=John
 req.query.firstname // => ???
 ```
 
-It is `[ "John", "John" ]` !
+It is `[ "John", "John" ]` ! [These excellent slides](https://speakerdeck.com/ckarande/top-overlooked-security-threats-to-node-dot-js-web-applications?slide=48) give you the details.
 
-Check out [these excellent slides](https://speakerdeck.com/ckarande/top-overlooked-security-threats-to-node-dot-js-web-applications?slide=48).
+This library prevents those HTTP Parameter Pollution attacks by putting array parameters in `req.query` and/or `req.body` aside and by just selecting the first parameter value. 
 
 ## Installation
 
