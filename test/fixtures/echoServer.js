@@ -17,8 +17,11 @@ module.exports = {
         var app = express();
         server = http.createServer(app);
 
-        app.use(bodyParser.json());
-        app.use(bodyParser.urlencoded({ extended: true }));
+        if (options.bodyParser !== false) {
+            app.use(bodyParser.json());
+            app.use(bodyParser.urlencoded({extended: true}));
+        }
+
         app.use(hpp(options.hpp));
 
         app.use(function (req, res, next) {

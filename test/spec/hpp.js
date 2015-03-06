@@ -290,6 +290,30 @@ describe('HPP', function () {
 
         });
 
+        it('with no body parser', function (done) {
+
+            echoServer.start({ bodyParser: false }, function () {
+
+                rp.post({
+                        uri: echoServer.url + '/search',
+                        body: 'title=PhD&firstname=John&firstname=Alice&age=40',
+                        headers: {
+                            'content-type': 'application/x-www-form-urlencoded'
+                        }
+                    })
+                    .then(function (data) {
+                        expect(data).to.eql({
+                            query: {},
+                            queryPolluted: {}
+                        });
+                        done();
+                    })
+                    .catch(done);
+
+            });
+
+        });
+
         it('but only for application/x-www-form-urlencoded', function (done) {
 
             echoServer.start({}, function () {
