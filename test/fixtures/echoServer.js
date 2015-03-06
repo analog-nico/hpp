@@ -2,6 +2,7 @@
 
 var express = require('express');
 var http = require('http');
+var bodyParser = require('body-parser');
 var hpp = require('../../lib/index.js');
 
 var server = null;
@@ -16,6 +17,8 @@ module.exports = {
         var app = express();
         server = http.createServer(app);
 
+        app.use(bodyParser.json());
+        app.use(bodyParser.urlencoded({ extended: true }));
         app.use(hpp(options.hpp));
 
         app.use(function (req, res, next) {
