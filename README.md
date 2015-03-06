@@ -68,7 +68,7 @@ Checking `req.query` may be turned off by using `app.use(hpp({ checkQuery: false
 
 ## Details about `req.body`
 
-**Checking `req.body` is only done for requests with `req.headers['content-type'] === 'application/x-www-form-urlencoded'`.**
+**Checking `req.body` is only done for requests with an urlencoded body. Not for json nor multipart bodies.**
 
 By default all top-level parameters in `req.body` are checked for being an array. If a parameter is an array the array is moved to `req.bodyPolluted` and `req.body` is assigned the first value of the array:
 
