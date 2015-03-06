@@ -14,7 +14,7 @@ req.query.firstname // => ???
 
 It is `[ "John", "John" ]` ! [These excellent slides](https://speakerdeck.com/ckarande/top-overlooked-security-threats-to-node-dot-js-web-applications?slide=48) give you the details.
 
-This library prevents those HTTP Parameter Pollution attacks by putting array parameters in `req.query` and/or `req.body` aside and by just selecting the first parameter value. 
+This library prevents those HTTP Parameter Pollution attacks by putting array parameters in `req.query` and/or `req.body` aside and just selecting the first parameter value.
 
 ## Installation
 
@@ -28,7 +28,67 @@ npm install hpp --save
 
 ## Getting Started
 
-Description forthcoming.
+Add the HPP middleware like this:
+
+``` js
+// ...
+var hpp = require('hpp');
+
+// ...
+app.use(bodyParser.urlencoded()); // Make sure the body is parsed beforehand.
+
+app.use(hpp()); // <- THIS IS THE NEW LINE
+
+// Add your own middlewares afterwards, e.g.:
+app.get('/search', function (req, res, next) { /* ... */ });
+// They are safe from HTTP Parameter Pollution now.
+```
+
+## Details about `req.query`
+
+By default all top-level parameters in `req.query` are checked for being an array. If a parameter is an array the array is moved to `req.queryPolluted` and `req.query` is assigned the first value of the array:
+
+```
+GET /search?firstname=John&firstname=Alice&lastname=Doe
+
+=>
+
+req: {
+    query: {
+        firstname: 'John',
+        lastname: 'Doe',
+    },
+    queryPolluted: {
+        firstname: [ 'John', 'Alice' ]
+    }
+}
+```
+
+Checking `req.query` may be turned off by using `app.use(hpp({ checkQuery: false }))`.
+
+## Details about `req.body`
+
+**Checking `req.body` is only done for requests with `req.headers['content-type'] === 'application/x-www-form-urlencoded'`.**
+
+By default all top-level parameters in `req.body` are checked for being an array. If a parameter is an array the array is moved to `req.bodyPolluted` and `req.body` is assigned the first value of the array:
+
+```
+POST firstname=John&firstname=Alice&lastname=Doe
+
+=>
+
+req: {
+    body: {
+        firstname: 'John',
+        lastname: 'Doe',
+    },
+    bodyPolluted: {
+        firstname: [ 'John', 'Alice' ]
+    }
+}
+```
+
+Checking `req.body` may be turned off by using `app.use(hpp({ checkBody: false }))`.
 
 ## Contributing
 
@@ -46,7 +106,7 @@ If you want to debug a test you should use `gulp test-without-coverage` to run a
 
 ## Change History
 
-- v0.0.1 (Forthcoming)
+- v0.0.1 (2015-03-05)
     - Initial version
 
 ## License (ISC)
