@@ -1,6 +1,6 @@
 {
   "name": "hpp",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Express/Connect middleware to protect against HTTP Parameter Pollution attacks",
   "keywords": [
     "hpp",
