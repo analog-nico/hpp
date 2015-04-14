@@ -16,6 +16,8 @@ It is `[ "John", "John" ]` !!!
 
 [These excellent slides](https://speakerdeck.com/ckarande/top-overlooked-security-threats-to-node-dot-js-web-applications?slide=48) explain possible exploits that may even result in the denial of service.
 
+<script async class="speakerdeck-embed" data-slide="48" data-id="c5d895008c77013162b85e7a2e8ee0d7" data-ratio="1.29456384323641" src="//speakerdeck.com/assets/embed.js"></script>
+
 This library prevents HTTP Parameter Pollution attacks by putting array parameters in `req.query` and/or `req.body` aside and by just selecting the first parameter value.
 
 ## Installation
