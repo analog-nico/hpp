@@ -1,24 +1,23 @@
 # HPP
 
-[Express](http://expressjs.com)/Connect middleware to protect against HTTP Parameter Pollution attacks
+[Express](http://expressjs.com) middleware to **protect against HTTP Parameter Pollution attacks**
 
 [![Build Status](https://travis-ci.org/analog-nico/hpp.svg?branch=master)](https://travis-ci.org/analog-nico/hpp) [![Coverage Status](https://coveralls.io/repos/analog-nico/hpp/badge.png)](https://coveralls.io/r/analog-nico/hpp?branch=master) [![Dependency Status](https://david-dm.org/analog-nico/hpp.svg)](https://david-dm.org/analog-nico/hpp)
 
 ## Why?
 
-GET /search?**firstname**=John&**firstname**=John
+Let [Chetan Karande's slides](https://speakerdeck.com/ckarande/top-overlooked-security-threats-to-node-dot-js-web-applications?slide=48) do the explaining:
 
-``` js
-req.query.firstname // => ???
-```
+[![Slide 48](img/slide48.jpg)](https://speakerdeck.com/ckarande/top-overlooked-security-threats-to-node-dot-js-web-applications?slide=48)
+[![Slide 49](img/slide48.jpg)](https://speakerdeck.com/ckarande/top-overlooked-security-threats-to-node-dot-js-web-applications?slide=49)
+[![Slide 50](img/slide48.jpg)](https://speakerdeck.com/ckarande/top-overlooked-security-threats-to-node-dot-js-web-applications?slide=50)
+[![Slide 54](img/slide48.jpg)](https://speakerdeck.com/ckarande/top-overlooked-security-threats-to-node-dot-js-web-applications?slide=54)
 
-It is `[ "John", "John" ]` !!!
+...and exploits may result in denial of service.
 
-[These excellent slides](https://speakerdeck.com/ckarande/top-overlooked-security-threats-to-node-dot-js-web-applications?slide=48) explain possible exploits that may even result in the denial of service.
+## And HPP solves this how exactly?
 
-<script async class="speakerdeck-embed" data-slide="48" data-id="c5d895008c77013162b85e7a2e8ee0d7" data-ratio="1.29456384323641" src="//speakerdeck.com/assets/embed.js"></script>
-
-This library prevents HTTP Parameter Pollution attacks by putting array parameters in `req.query` and/or `req.body` aside and by just selecting the first parameter value.
+HPP puts array parameters in `req.query` and/or `req.body` aside and just selects the first parameter value. You add the middleware and you are done.
 
 ## Installation
 
