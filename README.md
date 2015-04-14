@@ -13,7 +13,7 @@ Let [Chetan Karande's slides](https://speakerdeck.com/ckarande/top-overlooked-se
 [![Slide 50](img/slide50.jpg)](https://speakerdeck.com/ckarande/top-overlooked-security-threats-to-node-dot-js-web-applications?slide=50)
 [![Slide 54](img/slide54.jpg)](https://speakerdeck.com/ckarande/top-overlooked-security-threats-to-node-dot-js-web-applications?slide=54)
 
-...and exploits may result in denial of service.
+...and exploits may allow [bypassing the input validation](https://speakerdeck.com/ckarande/top-overlooked-security-threats-to-node-dot-js-web-applications?slide=57) or even result in [denial of service](https://speakerdeck.com/ckarande/top-overlooked-security-threats-to-node-dot-js-web-applications?slide=55).
 
 ## And HPP solves this how exactly?
 
