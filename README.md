@@ -109,6 +109,9 @@ If you want to debug a test you should use `gulp test-without-coverage` to run a
 
 ## Change History
 
+- v0.1.1 (2015-04-16)
+    - Removed two closures
+    - Updated lodash
 - v0.1.0 (2015-04-12)
     - Updated dependencies
     - Use in production satisfactory
