@@ -25,7 +25,7 @@
     "test": "node_modules/.bin/gulp ci"
   },
   "dependencies": {
-    "lodash": "3.7.x",
+    "lodash": "3.8.x",
     "type-is": "1.6.x"
   },
   "engines": {
@@ -33,17 +33,17 @@
   },
   "devDependencies": {
     "body-parser": "1.12.x",
-    "chai": "2.2.x",
+    "chai": "2.3.x",
     "chalk": "1.0.x",
     "express": "4.12.x",
     "gulp": "3.8.x",
     "gulp-coveralls": "0.1.x",
-    "gulp-istanbul": "0.8.x",
+    "gulp-istanbul": "0.9.x",
     "gulp-jshint": "1.10.x",
     "gulp-mocha": "2.0.x",
     "jshint-stylish": "1.0.x",
     "request-promise": "0.4.x",
     "rimraf": "2.3.x",
-    "run-sequence": "1.0.x"
+    "run-sequence": "1.1.x"
   }
 }
