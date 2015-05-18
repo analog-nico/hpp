@@ -241,6 +241,39 @@ describe('HPP', function () {
 
         });
 
+        it('with multiple middlewares and whitelists', function (done) {
+
+            echoServer.start({ hpp: [
+                    { options: { whitelist: 'a' } },
+                    { path: '/x', options: { whitelist: 'b' } },
+                    { path: '/x/y', options: { whitelist: [ 'b', 'c' ] } },
+                    { path: '/z/z', options: { whitelist: 'd' } }
+                ]},
+                function () {
+
+                    rp(echoServer.url + '/x/y?a=1&a=2&b=3&b=4&c=5&c=6&d=7&d=8')
+                        .then(function (data) {
+                            expect(data).to.eql({
+                                query: {
+                                    a: [ '1', '2' ],
+                                    b: [ '3', '4' ],
+                                    c: [ '5', '6' ],
+                                    d: '7'
+                                },
+                                queryPolluted: {
+                                    d: [ '7', '8' ]
+                                },
+                                body: {}
+                            });
+                            done();
+                        })
+                        .catch(done);
+
+                }
+            );
+
+        });
+
     });
 
     describe('should check req.body', function () {
@@ -524,6 +557,46 @@ describe('HPP', function () {
 
         });
 
+        it('with multiple middlewares and whitelists', function (done) {
+
+            echoServer.start({ hpp: [
+                    { options: { whitelist: 'a' } },
+                    { path: '/x', options: { whitelist: 'b' } },
+                    { path: '/x/y', options: { whitelist: [ 'b', 'c' ] } },
+                    { path: '/z/z', options: { whitelist: 'd' } }
+                ]},
+                function () {
+
+                    rp.post({
+                            uri: echoServer.url + '/x/y',
+                            body: 'a=1&a=2&b=3&b=4&c=5&c=6&d=7&d=8',
+                            headers: {
+                                'content-type': 'application/x-www-form-urlencoded'
+                            }
+                        })
+                        .then(function (data) {
+                            expect(data).to.eql({
+                                query: {},
+                                queryPolluted: {},
+                                body: {
+                                    a: [ '1', '2' ],
+                                    b: [ '3', '4' ],
+                                    c: [ '5', '6' ],
+                                    d: '7'
+                                },
+                                bodyPolluted: {
+                                    d: [ '7', '8' ]
+                                }
+                            });
+                            done();
+                        })
+                        .catch(done);
+
+                }
+            );
+
+        });
+
     });
 
     describe('should check both', function () {
@@ -565,6 +638,55 @@ describe('HPP', function () {
                         }
                     });
                 });
+
+        });
+
+        it('with multiple middlewares and different whitelists for query and body', function (done) {
+
+            echoServer.start({ hpp: [
+                    { options: { whitelist: 'a' } },
+                    { path: '/x', options: { whitelist: 'b', checkQuery: false } },
+                    { path: '/x/y', options: { whitelist: 'c', checkBody: false } },
+                    { path: '/z/z', options: { whitelist: 'd' } }
+                ]},
+                function () {
+
+                    rp.post({
+                        uri: echoServer.url + '/x/y?a=1&a=2&b=3&b=4&c=5&c=6&d=7&d=8',
+                        body: 'a=1&a=2&b=3&b=4&c=5&c=6&d=7&d=8',
+                        headers: {
+                            'content-type': 'application/x-www-form-urlencoded'
+                        }
+                    })
+                        .then(function (data) {
+                            expect(data).to.eql({
+                                query: {
+                                    a: [ '1', '2' ],
+                                    b: '3',
+                                    c: [ '5', '6' ],
+                                    d: '7'
+                                },
+                                queryPolluted: {
+                                    b: [ '3', '4' ],
+                                    d: [ '7', '8' ]
+                                },
+                                body: {
+                                    a: [ '1', '2' ],
+                                    b: [ '3', '4' ],
+                                    c: '5',
+                                    d: '7'
+                                },
+                                bodyPolluted: {
+                                    c: [ '5', '6' ],
+                                    d: [ '7', '8' ]
+                                }
+                            });
+                            done();
+                        })
+                        .catch(done);
+
+                }
+            );
 
         });
 

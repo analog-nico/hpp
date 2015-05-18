@@ -4,6 +4,7 @@ var express = require('express');
 var http = require('http');
 var bodyParser = require('body-parser');
 var hpp = require('../../lib/index.js');
+var _ = require('lodash');
 
 var server = null;
 
@@ -22,7 +23,17 @@ module.exports = {
             app.use(bodyParser.urlencoded({extended: true}));
         }
 
-        app.use(hpp(options.hpp));
+        if (_.isArray(options.hpp)) {
+            _.forEach(options.hpp, function (settings) {
+                if (settings.path) {
+                    app.use(settings.path, hpp(settings.options));
+                } else {
+                    app.use(hpp(settings.options));
+                }
+            });
+        } else {
+            app.use(hpp(options.hpp));
+        }
 
         app.use(function (req, res, next) {
             res.json({
