@@ -93,6 +93,37 @@ req: {
 
 Checking `req.body` may be turned off by using `app.use(hpp({ checkBody: false }))`.
 
+## Whitelisting Specific Parameters
+
+The `whitelist` option allows to specify parameters that shall not be touched by HPP. Usually specific parameters of a certain route are intentionally used as arrays. For that use the following approach that involves multiple HPP middlewares:
+
+``` js
+// Secure all routes at first.
+// You could add separate HPP middlewares to each route individually but the day will come when you forget to secure a new route.
+app.use(hpp());
+
+// Add a second HPP middleware to apply the whitelist only to this route.
+app.use('/search', hpp({ whitelist: [ 'filter' ] }));
+```
+
+```
+GET /search?package=HPP&package=Helmet&filter=nodejs&filter=iojs
+
+=>
+
+req: {
+    query: {
+        package: 'HPP',
+        filter:  [ 'nodejs', 'iojs' ], // Still an array
+    },
+    queryPolluted: {
+        package: [ 'HPP', 'Helmet' ]
+    }
+}
+```
+
+The whitelist works for both `req.query` and `req.body`.
+
 ## Contributing
 
 To set up your development environment for HPP:
@@ -109,6 +140,10 @@ If you want to debug a test you should use `gulp test-without-coverage` to run a
 
 ## Change History
 
+- v0.1.2 (2015-05-18)
+    - Added [whitelist feature](#whitelisting-specific-parameters)
+      *Thanks to @avaly for suggesting this in [issue #1](https://github.com/analog-nico/hpp/issues/1)*
+	- Updated dependencies
 - v0.1.1 (2015-04-16)
     - Removed two closures
     - Updated lodash
