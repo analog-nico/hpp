@@ -17,7 +17,7 @@ Let [Chetan Karande's slides](https://speakerdeck.com/ckarande/top-overlooked-se
 
 ## And HPP solves this how exactly?
 
-HPP puts array parameters in `req.query` and/or `req.body` aside and just selects the first parameter value. You add the middleware and you are done.
+HPP puts array parameters in `req.query` and/or `req.body` aside and just selects the last parameter value. You add the middleware and you are done.
 
 ## Installation
 
@@ -49,7 +49,7 @@ app.get('/search', function (req, res, next) { /* ... */ });
 
 ## Details about `req.query`
 
-By default all top-level parameters in `req.query` are checked for being an array. If a parameter is an array the array is moved to `req.queryPolluted` and `req.query` is assigned the first value of the array:
+By default all top-level parameters in `req.query` are checked for being an array. If a parameter is an array the array is moved to `req.queryPolluted` and `req.query` is assigned the last value of the array:
 
 ```
 GET /search?firstname=John&firstname=Alice&lastname=Doe
@@ -58,7 +58,7 @@ GET /search?firstname=John&firstname=Alice&lastname=Doe
 
 req: {
     query: {
-        firstname: 'John',
+        firstname: 'Alice',
         lastname: 'Doe',
     },
     queryPolluted: {
@@ -73,7 +73,7 @@ Checking `req.query` may be turned off by using `app.use(hpp({ checkQuery: false
 
 **Checking `req.body` is only done for requests with an urlencoded body. Not for json nor multipart bodies.**
 
-By default all top-level parameters in `req.body` are checked for being an array. If a parameter is an array the array is moved to `req.bodyPolluted` and `req.body` is assigned the first value of the array:
+By default all top-level parameters in `req.body` are checked for being an array. If a parameter is an array the array is moved to `req.bodyPolluted` and `req.body` is assigned the last value of the array:
 
 ```
 POST firstname=John&firstname=Alice&lastname=Doe
@@ -82,7 +82,7 @@ POST firstname=John&firstname=Alice&lastname=Doe
 
 req: {
     body: {
-        firstname: 'John',
+        firstname: 'Alice',
         lastname: 'Doe',
     },
     bodyPolluted: {
@@ -124,6 +124,12 @@ req: {
 
 The whitelist works for both `req.query` and `req.body`.
 
+## Performance
+
+HPP was written with performance in mind since it eats CPU cycles for each request.
+
+A [performance test](test/spec/perf.js) that includes two HPP middlewares plus a whitelist simulates an already demanding use case. On my Mac Book Air it measures **0.005ms to process a single request**.
+
 ## Contributing
 
 To set up your development environment for HPP:
@@ -140,9 +146,16 @@ If you want to debug a test you should use `gulp test-without-coverage` to run a
 
 ## Change History
 
+- v0.2.0 (2015-05-25)
+    - Bumped version to 0.2 to properly follow semver since the whitelist was added in v0.1.2
+    - For better intuitiveness the last instead of the first value of an array is selected 
+    - Refactoring to improve readability and performance
+      *(Thanks to @le0nik for [pull request #2](https://github.com/analog-nico/hpp/pull/2))*
+    - Updated dependencies
+      *(Thanks to @maxrimue for [pull request #3](https://github.com/analog-nico/hpp/pull/3))*
 - v0.1.2 (2015-05-18)
     - Added [whitelist feature](#whitelisting-specific-parameters)
-      *Thanks to @avaly for suggesting this in [issue #1](https://github.com/analog-nico/hpp/issues/1)*
+      *(Thanks to @avaly for suggesting this in [issue #1](https://github.com/analog-nico/hpp/issues/1))*
 	- Updated dependencies
 - v0.1.1 (2015-04-16)
     - Removed two closures
