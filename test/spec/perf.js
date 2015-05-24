@@ -7,6 +7,8 @@ describe('Performance', function () {
 
     it('for checking body with two middleware including whitelist', function () {
 
+        this.timeout(10000); // CI build might be very slow
+
         var firstMiddleware = hpp();
         var secondMiddleware = hpp({
             whitelist: [ 'filter' ]
