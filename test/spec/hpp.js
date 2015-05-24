@@ -29,7 +29,7 @@ describe('HPP', function () {
                         expect(data).to.eql({
                             query: {
                                 title: 'PhD',
-                                firstname: 'John',
+                                firstname: 'Alice',
                                 age: '40'
                             },
                             queryPolluted: {
@@ -56,7 +56,7 @@ describe('HPP', function () {
                                 title: 'PhD',
                                 firstname: [ 'John', 'Alice' ],
                                 age: [ '40', '41' ],
-                                0: 'element1'
+                                0: 'element2'
                             },
                             queryPolluted: {
                                 0: [ 'element1', 'element2' ]
@@ -106,7 +106,7 @@ describe('HPP', function () {
                 .then(function (data) {
                     expect(data).to.eql({
                         query: {
-                            firstname: 'John'
+                            firstname: 'Alice'
                         },
                         queryPolluted: {
                             firstname: [ 'John', 'Alice' ]
@@ -124,7 +124,7 @@ describe('HPP', function () {
                     expect(data).to.eql({
                         query: {
                             title: 'PhD',
-                            firstname: 'John',
+                            firstname: 'Alice',
                             age: '40'
                         },
                         queryPolluted: {
@@ -201,7 +201,7 @@ describe('HPP', function () {
                             query: {
                                 title: 'PhD',
                                 firstname: [ 'John', 'Alice' ],
-                                age: '40'
+                                age: '41'
                             },
                             queryPolluted: {
                                 age: [ '40', '41' ]
@@ -226,7 +226,7 @@ describe('HPP', function () {
                             query: {
                                 title: [ 'PhD', 'MSC' ],
                                 firstname: [ 'John', 'Alice' ],
-                                age: '40'
+                                age: '41'
                             },
                             queryPolluted: {
                                 age: [ '40', '41' ]
@@ -258,7 +258,7 @@ describe('HPP', function () {
                                     a: [ '1', '2' ],
                                     b: [ '3', '4' ],
                                     c: [ '5', '6' ],
-                                    d: '7'
+                                    d: '8'
                                 },
                                 queryPolluted: {
                                     d: [ '7', '8' ]
@@ -324,7 +324,7 @@ describe('HPP', function () {
                         query: {},
                         queryPolluted: {},
                         body: {
-                            firstname: 'John'
+                            firstname: 'Alice'
                         },
                         bodyPolluted: {
                             firstname: [ 'John', 'Alice' ]
@@ -349,7 +349,7 @@ describe('HPP', function () {
                         queryPolluted: {},
                         body: {
                             title: 'PhD',
-                            firstname: 'John',
+                            firstname: 'Alice',
                             age: '40'
                         },
                         bodyPolluted: {
@@ -511,7 +511,7 @@ describe('HPP', function () {
                             body: {
                                 title: 'PhD',
                                 firstname: [ 'John', 'Alice' ],
-                                age: '40'
+                                age: '41'
                             },
                             bodyPolluted: {
                                 age: [ '40', '41' ]
@@ -543,7 +543,7 @@ describe('HPP', function () {
                             body: {
                                 title: [ 'PhD', 'MSC' ],
                                 firstname: [ 'John', 'Alice' ],
-                                age: '40'
+                                age: '41'
                             },
                             bodyPolluted: {
                                 age: [ '40', '41' ]
@@ -582,7 +582,7 @@ describe('HPP', function () {
                                     a: [ '1', '2' ],
                                     b: [ '3', '4' ],
                                     c: [ '5', '6' ],
-                                    d: '7'
+                                    d: '8'
                                 },
                                 bodyPolluted: {
                                     d: [ '7', '8' ]
@@ -622,7 +622,7 @@ describe('HPP', function () {
                     expect(data).to.eql({
                         query: {
                             title: 'Prof',
-                            firstname: 'Alice',
+                            firstname: 'John',
                             age: '41'
                         },
                         queryPolluted: {
@@ -630,7 +630,7 @@ describe('HPP', function () {
                         },
                         body: {
                             title: 'PhD',
-                            firstname: 'John',
+                            firstname: 'Alice',
                             age: '40'
                         },
                         bodyPolluted: {
@@ -662,9 +662,9 @@ describe('HPP', function () {
                             expect(data).to.eql({
                                 query: {
                                     a: [ '1', '2' ],
-                                    b: '3',
+                                    b: '4',
                                     c: [ '5', '6' ],
-                                    d: '7'
+                                    d: '8'
                                 },
                                 queryPolluted: {
                                     b: [ '3', '4' ],
@@ -673,8 +673,8 @@ describe('HPP', function () {
                                 body: {
                                     a: [ '1', '2' ],
                                     b: [ '3', '4' ],
-                                    c: '5',
-                                    d: '7'
+                                    c: '6',
+                                    d: '8'
                                 },
                                 bodyPolluted: {
                                     c: [ '5', '6' ],
