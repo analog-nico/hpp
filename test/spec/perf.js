@@ -1,6 +1,7 @@
 'use strict';
 
 var hpp = require('../../lib/index.js');
+var present = require('present');
 
 
 describe('Performance', function () {
@@ -20,7 +21,7 @@ describe('Performance', function () {
             });
         };
 
-        var timeStart = (new Date()).getTime();
+        var timeStart = present();
 
         var req;
         var iterations = 100000;
@@ -40,7 +41,7 @@ describe('Performance', function () {
 
         }
 
-        var timeEnd = (new Date()).getTime();
+        var timeEnd = present();
 
         expect(req).to.eql({
             query: {

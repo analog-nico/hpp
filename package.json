@@ -42,6 +42,7 @@
     "gulp-jshint": "^1.11.0",
     "gulp-mocha": "^2.1.0",
     "jshint-stylish": "^1.0.2",
+    "present": "0.0.6",
     "request-promise": "^0.4.2",
     "rimraf": "^2.3.4",
     "run-sequence": "^1.1.0"
