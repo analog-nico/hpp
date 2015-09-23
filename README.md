@@ -107,7 +107,7 @@ app.use('/search', hpp({ whitelist: [ 'filter' ] }));
 ```
 
 ```
-GET /search?package=HPP&package=Helmet&filter=nodejs&filter=iojs
+GET /search?package=Helmet&package=HPP&filter=nodejs&filter=iojs
 
 =>
 
@@ -117,7 +117,7 @@ req: {
         filter:  [ 'nodejs', 'iojs' ], // Still an array
     },
     queryPolluted: {
-        package: [ 'HPP', 'Helmet' ]
+        package: [ 'Helmet', 'HPP' ]
     }
 }
 ```
