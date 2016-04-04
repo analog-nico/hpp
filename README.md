@@ -128,7 +128,7 @@ The whitelist works for both `req.query` and `req.body`.
 
 HPP was written with performance in mind since it eats CPU cycles for each request.
 
-A [performance test](test/spec/perf.js) that includes two HPP middlewares plus a whitelist simulates an already demanding use case. On my Mac Book Air it measures **0.005ms to process a single request**.
+A [performance test](test/spec/perf.js) that includes two HPP middlewares plus a whitelist simulates an already demanding use case. On my Mac Book Air it measures **0.02ms to process a single request**.
 
 ## Contributing
 
@@ -146,6 +146,10 @@ If you want to debug a test you should use `gulp test-without-coverage` to run a
 
 ## Change History
 
+- v0.2.1 (upcoming)
+    - Added node v4 and v5 to CI build
+    - Removed node v0.11 from CI build
+    - Updated dependencies
 - v0.2.0 (2015-05-25)
     - Bumped version to 0.2 to properly follow semver since the whitelist was added in v0.1.2
     - For better intuitiveness the last instead of the first value of an array is selected 
