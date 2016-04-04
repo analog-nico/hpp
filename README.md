@@ -146,7 +146,7 @@ If you want to debug a test you should use `gulp test-without-coverage` to run a
 
 ## Change History
 
-- v0.2.1 (upcoming)
+- v0.2.1 (2016-04-03)
     - Added node v4 and v5 to CI build
     - Removed node v0.11 from CI build
     - Updated dependencies
