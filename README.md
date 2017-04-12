@@ -128,7 +128,7 @@ The whitelist works for both `req.query` and `req.body`.
 
 HPP was written with performance in mind since it eats CPU cycles for each request.
 
-A [performance test](test/spec/perf.js) that includes two HPP middlewares plus a whitelist simulates an already demanding use case. On my Mac Book Air it measures **0.02ms to process a single request**.
+A [performance test](test/spec/perf.js) that includes two HPP middlewares plus a whitelist simulates an already demanding use case. On my Mac Book Air it measures **0.002ms to process a single request**.
 
 ## Contributing
 
