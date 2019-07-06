@@ -22,11 +22,14 @@
     "url": "https://github.com/analog-nico/hpp.git"
   },
   "scripts": {
-    "test": "node_modules/.bin/gulp ci"
+    "test": "node_modules/.bin/gulp ci",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "lodash": "^4.7.0",
-    "type-is": "^1.6.12"
+    "type-is": "^1.6.12",
+    "snyk": "^1.192.3"
   },
   "engines": {
     "node": ">=0.10.0"
@@ -47,5 +50,6 @@
     "request-promise": "^2.0.1",
     "rimraf": "^2.5.2",
     "run-sequence": "^1.1.5"
-  }
+  },
+  "snyk": true
 }
