@@ -136,6 +136,36 @@ describe('HPP', function () {
 
         });
 
+        it('with uri encoded array', function () {
+
+            return rp(echoServer.url + '/search?firstname='+encodeURIComponent(['John', 'Alice']))
+                .then(function (data) {
+                    expect(data).to.eql({
+                        query: {
+                            firstname: 'John,Alice'
+                        },
+                        queryPolluted: {},
+                        body: {}
+                    });
+                });
+
+        });
+
+        it('with uri encoding of array notation', function () {
+
+            return rp(echoServer.url + '/search?firstname='+encodeURIComponent('[\'John\', \'Alice\']'))
+                .then(function (data) {
+                    expect(data).to.eql({
+                        query: {
+                            firstname: '[\'John\', \'Alice\']'
+                        },
+                        queryPolluted: {},
+                        body: {}
+                    });
+                });
+
+        });
+
         it('without any pollution', function () {
 
             return rp(echoServer.url + '/search?title=PhD&firstname=Alice&age=40')
