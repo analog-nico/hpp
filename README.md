@@ -146,6 +146,10 @@ If you want to debug a test you should use `gulp test-without-coverage` to run a
 
 ## Change History
 
+- v0.2.3 (2020-01-07)
+    - Updated lodash dependency because of vulnerability
+    - Added node v6, v8, v10 to CI build
+    - Removed node v5 from CI build
 - v0.2.2 (2017-04-11)
     - Requiring individual lodash functions for faster boot time and lower memory footprint
       *(Thanks to @mschipperheyn for suggesting this in [issue #6](https://github.com/analog-nico/hpp/issues/6))*
