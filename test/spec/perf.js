@@ -1,60 +1,54 @@
-'use strict';
+'use strict'
+const { expect } = require('chai')
+const present = require('present')
 
-var hpp = require('../../lib/index.js');
-var present = require('present');
-
+var hpp = require('../../lib/index.js')
 
 describe('Performance', function () {
+  it('for checking body with two middleware including whitelist', function () {
+    this.timeout(10000) // CI build might be very slow
 
-    it('for checking body with two middleware including whitelist', function () {
+    var firstMiddleware = hpp()
+    var secondMiddleware = hpp({
+      whitelist: ['filter']
+    })
 
-        this.timeout(10000); // CI build might be very slow
+    var simulateRequest = function (req) {
+      firstMiddleware(req, {}, function () {
+        secondMiddleware(req, {}, function () {})
+      })
+    }
 
-        var firstMiddleware = hpp();
-        var secondMiddleware = hpp({
-            whitelist: [ 'filter' ]
-        });
+    var timeStart = present()
 
-        var simulateRequest = function (req) {
-            firstMiddleware(req, {}, function () {
-                secondMiddleware(req, {}, function () {});
-            });
-        };
+    var req
+    var iterations = 100000
 
-        var timeStart = present();
-
-        var req;
-        var iterations = 100000;
-
-        for ( var i = 0; i < iterations; i+=1 ) {
-
-            req = {
-                query: {
-                    name: 'John',
-                    last: 'Doe',
-                    age: 33,
-                    filter: [ 'a', 'b' ]
-                }
-            };
-
-            simulateRequest(req);
-
+    for (var i = 0; i < iterations; i += 1) {
+      req = {
+        query: {
+          name: 'John',
+          last: 'Doe',
+          age: 33,
+          filter: ['a', 'b']
         }
+      }
 
-        var timeEnd = present();
+      simulateRequest(req)
+    }
 
-        expect(req).to.eql({
-            query: {
-                name: 'John',
-                last: 'Doe',
-                age: 33,
-                filter: [ 'a', 'b' ]
-            },
-            queryPolluted: {}
-        });
+    var timeEnd = present()
 
-        console.log('Processing a single requests took ' + ((timeEnd - timeStart) / iterations) + 'ms');
+    expect(req).to.eql({
+      query: {
+        name: 'John',
+        last: 'Doe',
+        age: 33,
+        filter: ['a', 'b']
+      },
+      queryPolluted: {}
+    })
 
-    });
-
-});
+    console.log('Processing a single requests took ' + ((timeEnd - timeStart) / iterations) + 'ms')
+  })
+})
