@@ -304,6 +304,29 @@ describe('HPP', function () {
 
         });
 
+        it('with keepFirst = true', function (done) {
+
+            echoServer.start({ hpp: { keepFirst: true } }, function () {
+
+                rp(echoServer.url + '/search?firstname=John&firstname=Alice')
+                    .then(function (data) {
+                        expect(data).to.eql({
+                            query: {
+                                firstname: 'John'
+                            },
+                            queryPolluted: {
+                                firstname: [ 'John', 'Alice' ]
+                            },
+                            body: {}
+                        });
+                        done();
+                    })
+                    .catch(done);
+
+            });
+
+        });
+
     });
 
     describe('should check req.body', function () {
@@ -624,6 +647,36 @@ describe('HPP', function () {
 
                 }
             );
+
+        });
+
+        it('with keepFirst = true', function (done) {
+
+            echoServer.start({ hpp: { keepFirst: true } }, function () {
+
+                rp.post({
+                        uri: echoServer.url + '/search',
+                        body: 'firstname=John&firstname=Alice',
+                        headers: {
+                            'content-type': 'application/x-www-form-urlencoded'
+                        }
+                    })
+                    .then(function (data) {
+                        expect(data).to.eql({
+                            query: {},
+                            queryPolluted: {},
+                            body: {
+                                firstname: 'John'
+                            },
+                            bodyPolluted: {
+                                firstname: [ 'John', 'Alice' ]
+                            }
+                        });
+                        done();
+                    })
+                    .catch(done);
+
+            });
 
         });
 
