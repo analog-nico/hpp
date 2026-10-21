@@ -150,6 +150,13 @@ push and pull request via GitHub Actions (see `.github/workflows/ci.yml`).
 
 ## Change History
 
+- v1.0.0 (2026-10-21)
+    - **Breaking:** dropped support for Node.js versions older than 16 (the package now requires Node.js `>=16`)
+    - Removed the runtime `lodash` dependency by replacing the three used helpers (`defaults`, `isString`, `isArray`) with small native equivalents; this reduces the package's dependency/attack surface with no behavior change
+    - Added a [`SECURITY.md`](SECURITY.md) policy with private reporting through GitHub Private Vulnerability Reporting
+    - Modernized the test harness to Mocha with the built-in `fetch` (replacing the deprecated Gulp/`request-promise` tooling)
+    - Added GitHub Actions CI for Node.js 16, 18, 20, and 22
+    - Updated README badges and contributing instructions
 - v0.2.3 (2020-01-07)
     - Updated lodash dependency because of vulnerability
     - Added node v6, v8, v10 to CI build
