@@ -4,7 +4,6 @@ var express = require('express');
 var http = require('http');
 var bodyParser = require('body-parser');
 var hpp = require('../../lib/index.js');
-var _ = require('lodash');
 
 var server = null;
 
@@ -23,8 +22,8 @@ module.exports = {
             app.use(bodyParser.urlencoded({extended: true}));
         }
 
-        if (_.isArray(options.hpp)) {
-            _.forEach(options.hpp, function (settings) {
+        if (Array.isArray(options.hpp)) {
+            options.hpp.forEach(function (settings) {
                 if (settings.path) {
                     app.use(settings.path, hpp(settings.options));
                 } else {

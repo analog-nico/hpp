@@ -2,7 +2,13 @@
 
 [Express](http://expressjs.com) middleware to **protect against HTTP Parameter Pollution attacks**
 
-[![Build Status](https://travis-ci.org/analog-nico/hpp.svg?branch=master)](https://travis-ci.org/analog-nico/hpp) [![Coverage Status](https://coveralls.io/repos/analog-nico/hpp/badge.png)](https://coveralls.io/r/analog-nico/hpp?branch=master) [![Dependency Status](https://david-dm.org/analog-nico/hpp.svg)](https://david-dm.org/analog-nico/hpp)
+[![CI](https://github.com/analog-nico/hpp/actions/workflows/ci.yml/badge.svg)](https://github.com/analog-nico/hpp/actions/workflows/ci.yml)
+
+## Reporting security issues
+
+See [SECURITY.md](SECURITY.md). Please report vulnerabilities privately via
+[GitHub Private Vulnerability Reporting](https://github.com/analog-nico/hpp/security/advisories/new),
+not through a public issue.
 
 ## Why?
 
@@ -136,13 +142,11 @@ To set up your development environment for HPP:
 
 1. Clone this repo to your desktop,
 2. in the shell `cd` to the main folder,
-3. hit `npm install`,
-4. hit `npm install gulp -g` if you haven't installed gulp globally yet, and
-5. run `gulp dev`. (Or run `node ./node_modules/.bin/gulp dev` if you don't want to install gulp globally.)
+3. run `npm install`,
+4. run `npm test` to run the Mocha test suite.
 
-`gulp dev` watches all source files and if you save some changes it will lint the code and execute all tests. The test coverage report can be viewed from `./coverage/lcov-report/index.html`.
-
-If you want to debug a test you should use `gulp test-without-coverage` to run all tests without obscuring the code by the test coverage instrumentation.
+Tests run on Node.js 16 and above, and are also executed automatically on every
+push and pull request via GitHub Actions (see `.github/workflows/ci.yml`).
 
 ## Change History
 

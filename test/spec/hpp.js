@@ -1,7 +1,7 @@
 'use strict';
 
 var echoServer = require('../fixtures/echoServer.js');
-var rp = require('request-promise').defaults({
+var rp = require('../fixtures/rp.js').defaults({
     transform: function (body) {
         return JSON.parse(body);
     }
